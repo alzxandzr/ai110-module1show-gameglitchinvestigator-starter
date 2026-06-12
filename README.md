@@ -9,7 +9,7 @@ the secret number changed type mid-game.
 
 ## 🎯 Purpose
 
-*Glitchy Guesser* is a Streamlit number-guessing game. The player picks a
+_Glitchy Guesser_ is a Streamlit number-guessing game. The player picks a
 difficulty (Easy / Normal / Hard), which sets a numeric range and an attempt
 limit. A secret number is generated once and stored in `st.session_state`. Each
 turn the player enters a guess; the app parses it, compares it to the secret,
@@ -29,25 +29,25 @@ while testing.
 ## 🐛 Bugs Found and Fixes Applied
 
 - **Inverted hint direction.** `check_guess` returned "Too High" with the
-  message "Go HIGHER!" (and the reverse for low guesses). *Fix:* swapped the two
+  message "Go HIGHER!" (and the reverse for low guesses). _Fix:_ swapped the two
   hint messages so "Too High" tells the player to go LOWER and "Too Low" tells
   them to go HIGHER. The operators were correct; only the message strings were wrong.
 - **Secret changed type on even attempts.** The app stringified the secret on
   even turns, so `check_guess` compared an `int` guess to a `str` secret. That
   raised `TypeError`, fell back to a lexicographic string compare (`"9" > "80"`
-  → `True`), and produced wrong hints on multi-digit numbers. *Fix:* removed the
+  → `True`), and produced wrong hints on multi-digit numbers. _Fix:_ removed the
   stringification and the lexicographic fallback so comparisons are always numeric.
 - **"New Game" left the board frozen.** It reset only `attempts` and `secret`
   (hardcoded to `1–100`) and never reset `status`, so after a win/loss the next
-  rerun hit `st.stop()` and the game was unplayable. *Fix:* "New Game" now clears
+  rerun hit `st.stop()` and the game was unplayable. _Fix:_ "New Game" now clears
   `attempts`, `score`, `status`, and `history`, and reseeds the secret using the
   current difficulty's range.
 - **Off-by-one attempts (low-risk extra).** `attempts` started at `1` and was
   incremented before validation, so the counter was wrong and invalid input
-  burned a turn. *Fix:* `attempts` starts at `0` and increments only after a
+  burned a turn. _Fix:_ `attempts` starts at `0` and increments only after a
   valid guess.
 - **Hardcoded range text (low-risk extra).** The info banner always said
-  "between 1 and 100." *Fix:* it now interpolates the active difficulty's range.
+  "between 1 and 100." _Fix:_ it now interpolates the active difficulty's range.
 
 The four game-logic functions were refactored out of `app.py` into
 `logic_utils.py`, which `app.py` now imports.
@@ -78,7 +78,7 @@ in the Debug panel):
 5. Click **New Game 🔁** → the board resets to a fresh, playable game with a new
    secret inside the Easy range and score back to 0.
 
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+**Screenshot** _(optional)_:
 
 ## 🧪 Test Results
 
